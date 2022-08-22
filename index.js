@@ -72,9 +72,10 @@ const mAnswers = [
         message: "what is the manager's office number?"
     }
 ];
-const init = () => { chosenOption() };
-
-// do done func
+const init = () => 
+    {
+    chosenOption()
+    };
 
 function engineerFill() {
     inquirer.prompt(eAnswers)
@@ -104,29 +105,31 @@ function managerFill() {
     })
 }
 function chosenOption(){
-    inquirer.prompt([{
-        type: 'list', 
-        name: 'option', 
-        message: 'choose something?',
-        choices: [
-            {name: 'engineer', value: 'newEngineer'},
-            {name: 'intern', value: 'newIntern'}, 
-            {name: 'manager', value: 'newManager'},
-            {name: 'done', value: 'done'}
-        ]
-    }])
-    .then( answer => {
-        if (answer.option === 'newEngineer') {
+    inquirer.prompt(
+        [{
+            type: 'list', 
+            name: 'options', 
+            message: 'choose one of the following:',
+            choices: 
+                [{name: 'Add an Engineer!', value: 'chosenE'},
+                    {name: 'Add an Intern!', value: 'chosenI'}, 
+                    {name: 'Add a Manager!', value: 'chosenM'},
+                    {name: 'Exit!', value: 'exit'}
+                ]
+        }]
+    )
+
+    .then(answer => {
+        if (answer.options === 'chosenE') {
             engineerFill()
-        } else if (answer.option === 'newIntern') {
+        } else if (answer.options === 'chosenI') {
             internFill()
-        } else if (answer.option === 'newManager') {
+        } else if (answer.options === 'chosenM') {
             managerFill()
-        }else if(answer.option === 'done'){
-            done()
+        }else if(answer.options === 'exit'){
+            process.exit()
         }
-    })
+  
+        })
 }
 init();
-
-
